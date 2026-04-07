@@ -26,7 +26,7 @@ public class Utilities {
             File source = ((TakesScreenshot) Constant.WEBDRIVER).getScreenshotAs(OutputType.FILE);
 
             // Lưu vào thư mục evidence theo trạng thái Pass/Fail
-            String filePath = System.getProperty("user.dir") + "/evidence/" + status + "_" + testName + "_" + date + ".png";
+            String filePath = System.getProperty("user.dir") + "/Evidence/" + status + "_" + testName + "_" + date + ".png";
             File destFile = new File(filePath);
             FileUtils.copyFile(source, destFile);
             System.out.println("Screenshot saved: " + filePath);
