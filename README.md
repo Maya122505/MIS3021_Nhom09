@@ -38,7 +38,7 @@ mvn clean test
 *   **Screenshot:** Hệ thống sẽ tự động chụp ảnh màn hình trình duyệt và lưu vào thư mục `Evidence/` để hỗ trợ việc phân tích lỗi.
 
 
-*Dự án được thực hiện bởi Nhóm 09 - 49K14.1 - 2026.*
+*Dự án được thực hiện bởi Nhóm 09 - 49K14.1*
 Thành viên nhóm: 
 1. Mai Thị Thu Thủy (Leader)
 2. Lê Nguyễn Bảo Trúc
