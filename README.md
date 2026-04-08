@@ -39,7 +39,7 @@ mvn clean test
 
 
 *Dự án được thực hiện bởi Nhóm 09 - 49K14.1*
-Thành viên nhóm: 
+# Thành viên nhóm: 
 1. Mai Thị Thu Thủy (Leader)
 2. Lê Nguyễn Bảo Trúc
 3. Đinh Thị Thức
