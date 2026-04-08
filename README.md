@@ -1,4 +1,4 @@
-# 🚂 Railway Automation Testing Project - Nhóm 09
+# 🚂 Railway Automation Testing Project - Nhóm 09 
 
 Dự án này là bộ công cụ kiểm thử tự động (Automation Testing) cho hệ thống **QA Railway**, được xây dựng dựa trên ngôn ngữ **Java** và thư viện **Selenium WebDriver**. Dự án áp dụng mô hình **Page Object Model (POM)** nhằm tối ưu hóa việc quản lý mã nguồn và tái sử dụng các thành phần giao diện.
 
