@@ -37,63 +37,100 @@ public class ManageTests {
     public void TC12() {
         String testEmail = "14253647lnbt@gmail.com";
 
+
         HomePage homePage = new HomePage();
         homePage.open();
+
+
         LoginPage loginPage = homePage.gotoLoginPage();
 
-        FogotPassWordPage forgotPwdPage = loginPage.clickForgotPasswordLink();
 
+        FogotPassWordPage forgotPwdPage = loginPage.clickForgotPasswordLink();
         forgotPwdPage.submitEmailForReset(testEmail);
+
+
+
 
         String resetLink = Utilities.getResetPasswordLinkFromEmail(testEmail);
         Constant.WEBDRIVER.get(resetLink);
 
+
         ResetPasswordPage resetPage = new ResetPasswordPage();
 
-        resetPage.enterNewPasswords("NewPass@123");
-        resetPage.clearResetToken();
 
+
+
+        resetPage.enterNewPasswords("NewPass@123", "NewPass@123");
+        resetPage.clearResetToken();
         resetPage.clickResetPasswordButton();
+
+
+
 
         String expectedFormError = "The password reset token is incorrect or may be expired. Visit the forgot password page to generate a new one.";
         String expectedTokenError = "The password reset token is invalid.";
+
+
+
 
         Assert.assertEquals(resetPage.getFormErrorMessage(), expectedFormError, "Form error message không khớp!");
         Assert.assertEquals(resetPage.getTokenErrorMessage(), expectedTokenError, "Token error message không khớp!");
     }
 
+
     @Test(description = "TC13 - Errors display if password and confirm password don't match when resetting password")
     public void TC13() {
         String testEmail = "14253647lnbt@gmail.com";
 
+
         HomePage homePage = new HomePage();
         homePage.open();
 
+
         LoginPage loginPage = homePage.gotoLoginPage();
+
+
         FogotPassWordPage forgotPwdPage = loginPage.clickForgotPasswordLink();
 
+
         forgotPwdPage.submitEmailForReset(testEmail);
+
 
         String resetLink = Utilities.getResetPasswordLinkFromEmail(testEmail);
         Constant.WEBDRIVER.get(resetLink);
 
+
         ResetPasswordPage resetPage = new ResetPasswordPage();
+
+
+
 
         resetPage.enterNewPasswords("NewPass@123", "WrongConfirm@123");
 
+
+
+
         resetPage.clickResetPasswordButton();
+
+
+
 
         String expectedFormError = "Could not reset password. Please correct the errors and try again.";
         String expectedConfirmPwdError = "The password confirmation did not match the new password.";
+
+
+
 
         Assert.assertEquals(resetPage.getFormErrorMessage(), expectedFormError, "Lỗi: Form error message không khớp!");
         Assert.assertEquals(resetPage.getConfirmPasswordErrorMessage(), expectedConfirmPwdError, "Lỗi: Confirm Password error message không khớp!");
     }
 
+
+
     @Test
     public void TC16() {
         String departFrom = "Huế";
-        String arriveAt = "Sài Gòn";
+        String arriveAt = "Nha Trang";
 
         HomePage homePage = new HomePage();
         homePage.open();
