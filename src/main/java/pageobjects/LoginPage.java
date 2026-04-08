@@ -46,4 +46,15 @@ public class LoginPage extends GeneralPage{
         // Land on Home page
         return new HomePage();
     }
+    private final By lnkForgotPassword = By.xpath("//a[@href='/Account/ForgotPassword.cshtml']");
+    public WebElement getLnkForgotPassword()
+    {
+        return wait.until(ExpectedConditions.elementToBeClickable(lnkForgotPassword));
+    }
+    public FogotPassWordPage clickForgotPasswordLink() {
+        // Sử dụng hàm getLnkForgotPassword() thay vì gọi thẳng driver.findElement
+        this.getLnkForgotPassword().click();
+        return new FogotPassWordPage();
+    }
+
 }

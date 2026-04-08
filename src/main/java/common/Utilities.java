@@ -19,7 +19,6 @@ public class Utilities {
             System.out.println("WebDriver is null. Cannot capture screenshot for: " + testName);
             return null;
         }
-        
         try {
             // Tạo tên file kèm thời gian để không bị ghi đè
             String date = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
@@ -38,4 +37,9 @@ public class Utilities {
             return null;
         }
     }
+    public static String getResetPasswordLinkFromEmail(String email) {
+        System.out.println("Đang kết nối đến Mail API để lấy link cho: " + email);
+        return "http://railwayb1.somee.com/Page/ResetPassword.cshtml?token=fake_token_123";
+    }
+
 }

@@ -5,20 +5,12 @@
         <listener class-name="common.TestListener"/>
     </listeners>
 
-    <test name="Login Tests">
+    <test name="Full Regression Tests">
         <classes>
             <class name="tests.LoginTests"/>
-        </classes>
-    </test>
-
-    <test name="Account Tests">
-        <classes>
             <class name="tests.AccountTests"/>
-        </classes>
-    </test>
-
-    <test name="Schedule Tests">
-        <classes>
+            <class name="tests.ManageTests"/>
+            <class name="tests.TicketTests"/>
             <class name="tests.ScheduleTests"/>
         </classes>
     </test>

@@ -2,14 +2,10 @@ package pageobjects;
 
 import common.Constant;
 
-public class HomePage extends GeneralPage{
-//    Locators
-//    Elements
-//    Methods
-    public HomePage open()
-    {
+public class HomePage extends GeneralPage {
+    // Methods
+    public HomePage open() {
         Constant.WEBDRIVER.navigate().to(Constant.RAIWAY_URL);
         return this;
     }
 }
-

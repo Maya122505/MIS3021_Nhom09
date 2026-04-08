@@ -16,11 +16,11 @@ public class GeneralPage {
     private final By tabLogin = By.xpath("//div[@id='menu']//a[@href='/Account/Login.cshtml']");
     private final By tabLogout = By.xpath("//div[@id='menu']//a[@href='/Account/Logout']");
     private final By lblWelcomeMessage = By.xpath("//div[@class='account']/strong");
-    
-    // Additional Locators for missing pages (assuming basic structure based on your project)
     private final By tabMyTicket = By.xpath("//div[@id='menu']//a[@href='/Page/ManageTicket.cshtml']");
     private final By tabChangePassword = By.xpath("//div[@id='menu']//a[@href='/Account/ChangePassword.cshtml']");
     private final By tabRegister = By.xpath("//div[@id='menu']//a[@href='/Account/Register.cshtml']");
+    private final By tabBookTicket = By.xpath("//div[@id='menu']//a[@href='/Page/BookTicketPage.cshtml']");
+    private final By tabSchedule = By.xpath("//div[@id='menu']//a[@href='/Page/TrainTimeListPage.cshtml']"); // Assuming
 
     // Elements
     protected WebElement getTabLogin() {
@@ -32,8 +32,6 @@ public class GeneralPage {
     protected WebElement getLblWelcomeMessage() {
         return wait.until(ExpectedConditions.visibilityOfElementLocated(lblWelcomeMessage));
     }
-    
-    // Additional Elements
     protected WebElement getTabMyTicket() {
         return wait.until(ExpectedConditions.elementToBeClickable(tabMyTicket));
     }
@@ -43,41 +41,86 @@ public class GeneralPage {
     protected WebElement getTabRegister() {
         return wait.until(ExpectedConditions.elementToBeClickable(tabRegister));
     }
+    protected WebElement getTabBookTicket() {
+        return wait.until(ExpectedConditions.elementToBeClickable(tabBookTicket));
+    }
+    protected WebElement getTabSchedule() {
+        return wait.until(ExpectedConditions.elementToBeClickable(tabSchedule));
+    }
 
     // Methods
-    public String getWelcomeMessage()
-    {
+    public String getWelcomeMessage() {
         return this.getLblWelcomeMessage().getText();
     }
-    public LoginPage gotoLoginPage()
-    {
+    
+    public LoginPage gotoLoginPage() {
         this.getTabLogin().click();
         return new LoginPage();
     }
     
-    // Additional Methods for Navigation (fixes the red lines in AccountTests.java)
-    public MyTicketPage gotoMyTicketPage()
-    {
+    public BookingPage gotoBookingPage() {
+        this.getTabBookTicket().click();
+        return new BookingPage();
+    }
+    
+    public MyTicketPage gotoMyTicketPage() {
         this.getTabMyTicket().click();
         return new MyTicketPage();
     }
     
-    public ChangePasswordPage gotoChangePasswordPage()
-    {
+    public ChangePasswordPage gotoChangePasswordPage() {
         this.getTabChangePassword().click();
         return new ChangePasswordPage();
     }
     
-    // In AccountTests TC09 you used gotoChange() instead of gotoChangePasswordPage()
-    public ChangePasswordPage gotoChange()
-    {
-        this.getTabChangePassword().click();
-        return new ChangePasswordPage();
+    public ChangePasswordPage gotoChange() {
+        return gotoChangePasswordPage();
     }
     
-    public RegisterPage gotoRegisterPage()
-    {
+    public RegisterPage gotoRegisterPage() {
         this.getTabRegister().click();
         return new RegisterPage();
+    }
+    
+    public SchedulePage gotoSchedulePage() {
+        this.getTabSchedule().click();
+        return new SchedulePage();
+    }
+
+    public HomePage gotoLogoutPage() {
+        this.getTabLogout().click();
+        return new HomePage();
+    }
+
+    public boolean isLogoutTabDisplayed() {
+        try {
+            return getTabLogout().isDisplayed();
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public boolean isMyTicketTabDisplayed() {
+        try {
+            return getTabMyTicket().isDisplayed();
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public boolean isChangePasswordTabDisplayed() {
+        try {
+            return getTabChangePassword().isDisplayed();
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public String getLogoutTabText() {
+        try {
+            return getTabLogout().getText().trim();
+        } catch (Exception e) {
+            return "";
+        }
     }
 }
