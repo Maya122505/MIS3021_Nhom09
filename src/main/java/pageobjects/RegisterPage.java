@@ -5,13 +5,10 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-
-import java.time.Duration;
 
 public class RegisterPage extends GeneralPage {
 
-    // Locators
+
     private final By txtEmail = By.id("email");
     private final By txtPassword = By.id("password");
     private final By txtConfirmPassword = By.id("confirmPassword");
@@ -23,7 +20,7 @@ public class RegisterPage extends GeneralPage {
     private final By lblPasswordError = By.xpath("//label[@for='password' and @class='validation-error']");
     private final By lblPIDError = By.xpath("//label[@for='pid' and @class='validation-error']");
 
-    // Elements
+
     protected WebElement getTxtEmail() {
         return Constant.WEBDRIVER.findElement(txtEmail);
     }
@@ -60,7 +57,7 @@ public class RegisterPage extends GeneralPage {
         return Constant.WEBDRIVER.findElement(lblPIDError);
     }
 
-    // Methods
+
     public void register(String email, String password, String confirmPassword, String pid) {
         this.getTxtEmail().sendKeys(email);
         this.getTxtPassword().sendKeys(password);

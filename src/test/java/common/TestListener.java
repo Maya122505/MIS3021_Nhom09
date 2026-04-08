@@ -15,31 +15,28 @@ import java.nio.file.Files;
 import java.util.Base64;
 
 public class TestListener implements ITestListener {
-    // Sử dụng static để duy trì trạng thái của report giữa các class test
+
     private static ExtentReports extent;
-    // Sử dụng ThreadLocal để hỗ trợ chạy song song (parallel testing) nếu sau này bạn cần
-    private static ThreadLocal<ExtentTest> test = new ThreadLocal<>();
+
+    private static final ThreadLocal<ExtentTest> test = new ThreadLocal<>();
 
     @Override
     public void onStart(ITestContext context) {
-        // Chỉ khởi tạo ExtentReports một lần duy nhất trong suốt quá trình chạy suite
+
         if (extent == null) {
             ExtentSparkReporter spark = new ExtentSparkReporter("target/ExtentReport.html");
-            
-            // Custom CSS
-            String customCss = ".test-content-detail { max-width: 100%; width: 100%; padding-right: 20px; } " +
-                               ".detail-body { max-width: 100% !important; } " +
-                               "pre, code { white-space: pre-wrap; word-wrap: break-word; font-size: 14px; max-height: none !important; } " +
-                               ".test-wrapper .test-content { overflow-y: auto !important; }";
-                               
+
+
+            String customCss = ".test-content-detail { max-width: 100%; width: 100%; padding-right: 20px; } " + ".detail-body { max-width: 100% !important; } " + "pre, code { white-space: pre-wrap; word-wrap: break-word; font-size: 14px; max-height: none !important; } " + ".test-wrapper .test-content { overflow-y: auto !important; }";
+
             spark.config().setCss(customCss);
             spark.config().setTheme(Theme.STANDARD);
             spark.config().setDocumentTitle("Railway Automation Report");
             spark.config().setReportName("Railway Regression Test Results");
-            
+
             extent = new ExtentReports();
             extent.attachReporter(spark);
-            
+
             extent.setSystemInfo("Team", "09");
             extent.setSystemInfo("Project Name", "Railway Automation");
             extent.setSystemInfo("Environment", "QA");
@@ -51,17 +48,17 @@ public class TestListener implements ITestListener {
 
     @Override
     public void onTestStart(ITestResult result) {
-        // Tạo test node mới trong report
+
         ExtentTest extentTest = extent.createTest(result.getMethod().getMethodName(), result.getMethod().getDescription());
         extentTest.assignCategory(result.getTestClass().getName());
-        // Lưu vào ThreadLocal
+
         test.set(extentTest);
     }
 
     @Override
     public void onTestSuccess(ITestResult result) {
         test.get().log(Status.PASS, "Test Case Passed: <b>" + result.getName() + "</b>");
-        
+
         String screenshotPath = Utilities.captureScreenshotAndReturnPath("PASS", result.getName());
         if (screenshotPath != null) {
             String base64Image = encodeFileToBase64Binary(new File(screenshotPath));
@@ -74,12 +71,12 @@ public class TestListener implements ITestListener {
     @Override
     public void onTestFailure(ITestResult result) {
         test.get().log(Status.FAIL, "Test Case Failed: <b>" + result.getName() + "</b>");
-        
+
         if (result.getThrowable() != null) {
             test.get().log(Status.FAIL, "<pre style='color:red;'>" + result.getThrowable().getMessage() + "</pre>");
             test.get().log(Status.FAIL, result.getThrowable());
         }
-        
+
         String screenshotPath = Utilities.captureScreenshotAndReturnPath("FAIL", result.getName());
         if (screenshotPath != null) {
             String base64Image = encodeFileToBase64Binary(new File(screenshotPath));
@@ -88,7 +85,7 @@ public class TestListener implements ITestListener {
             }
         }
     }
-    
+
     @Override
     public void onTestSkipped(ITestResult result) {
         test.get().log(Status.SKIP, "Test Case Skipped: " + result.getName());
@@ -104,7 +101,7 @@ public class TestListener implements ITestListener {
             extent.flush();
         }
     }
-    
+
     private String encodeFileToBase64Binary(File file) {
         try {
             byte[] fileContent = Files.readAllBytes(file.toPath());

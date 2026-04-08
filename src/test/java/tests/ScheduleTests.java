@@ -9,7 +9,6 @@ import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import pageobjects.HomePage;
 import pageobjects.RegisterPage;
-import pageobjects.SchedulePage;
 
 public class ScheduleTests {
     @BeforeMethod
@@ -17,6 +16,7 @@ public class ScheduleTests {
         Constant.WEBDRIVER = new ChromeDriver();
         Constant.WEBDRIVER.manage().window().maximize();
     }
+
     @AfterMethod
     public void afterMethod() {
         Constant.WEBDRIVER.quit();

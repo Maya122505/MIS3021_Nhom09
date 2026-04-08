@@ -1,5 +1,6 @@
 package tests;
 
+
 import common.Constant;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
@@ -10,11 +11,13 @@ import org.testng.asserts.SoftAssert;
 import pageobjects.BookingPage;
 import pageobjects.HomePage;
 import pageobjects.LoginPage;
-import pageobjects.MyTicketPage;
+import pageobjects.SchedulePage;
 
 import java.time.Duration;
 
+
 public class TicketTests {
+
 
     @BeforeMethod
     public void beforeMethod() {
@@ -23,6 +26,7 @@ public class TicketTests {
         Constant.WEBDRIVER.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
     }
 
+
     @AfterMethod
     public void afterMethod() {
         if (Constant.WEBDRIVER != null) {
@@ -30,47 +34,44 @@ public class TicketTests {
         }
     }
 
+
     @Test
-    public void TC14() throws Exception {
+    public void TC14() {
         HomePage homePage = new HomePage();
         homePage.open();
         LoginPage loginPage = homePage.gotoLoginPage();
         loginPage.login(Constant.USERNAME, Constant.PASSWORD);
 
-        BookingPage bookingPage = homePage.gotoBookingPage();
-        
-        // Define test data based on requirements
+
+        homePage.gotoBookingPage();
+        BookingPage bookingPage = new BookingPage().openWithRoute("1", "3");
+
+
         String departFrom = "Sài Gòn";
         String arriveAt = "Nha Trang";
         String seatType = "Soft bed with air conditioner";
         String ticketAmount = "1";
 
+
+        Assert.assertEquals(bookingPage.getSelectedDepartFrom(), departFrom, "Depart Station preselected incorrectly.");
+        Assert.assertEquals(bookingPage.getSelectedArriveAt(), arriveAt, "Arrive Station preselected incorrectly.");
         bookingPage.selectDepartDate();
-        bookingPage.selectDepartFrom(departFrom);
-        bookingPage.selectArriveAt(arriveAt);
+        String departDate = bookingPage.getSelectedDepartDate();
         bookingPage.selectSeatType(seatType);
         bookingPage.selectTicketAmount(ticketAmount);
-        
-        // Capture selected values if needed for assertion (or assume they match inputs)
-        // But for assertion, we need to know what was selected for comparison.
-        
         bookingPage.bookTicket();
 
+
         SoftAssert softAssert = new SoftAssert();
-
-        // Check success message
-        String actualMsg = bookingPage.getSuccessMessage().trim();
-        String expectedMsg = "Ticket booked successfully!";
-        softAssert.assertEquals(actualMsg, expectedMsg, "Lỗi: Thông báo đặt vé thành công không khớp mong đợi!");
-
-        // Check booked ticket information
+        softAssert.assertEquals(bookingPage.getSuccessMessage().trim(), "Ticket booked successfully!", "Success message mismatch!");
+        softAssert.assertEquals(bookingPage.getBookedDepartDate(), departDate, "Depart Date mismatch!");
         softAssert.assertEquals(bookingPage.getBookedDepartStation(), departFrom, "Depart Station mismatch!");
         softAssert.assertEquals(bookingPage.getBookedArriveStation(), arriveAt, "Arrive Station mismatch!");
         softAssert.assertEquals(bookingPage.getBookedSeatType(), seatType, "Seat Type mismatch!");
         softAssert.assertEquals(bookingPage.getBookedTicketAmount(), ticketAmount, "Ticket Amount mismatch!");
-
         softAssert.assertAll();
     }
+
 
     @Test
     public void TC15() {
@@ -78,7 +79,21 @@ public class TicketTests {
         homePage.open();
         LoginPage loginPage = homePage.gotoLoginPage();
         loginPage.login(Constant.USERNAME, Constant.PASSWORD);
-        MyTicketPage myTicketPage = homePage.gotoMyTicketPage();
-        Assert.assertTrue(myTicketPage.isMyTicketPageDisplayed(), "Lỗi: Trang My Ticket không hiển thị!");
+
+
+        String departFrom = "Huế";
+        String arriveAt = "Sài Gòn";
+
+
+        SchedulePage schedulePage = homePage.gotoSchedulePage();
+        schedulePage.clickBookTicketByStationIds("5", "1");
+
+
+        BookingPage bookingPage = new BookingPage();
+        Assert.assertEquals(bookingPage.getSelectedDepartFrom(), departFrom, "Depart from value mismatch!");
+        Assert.assertEquals(bookingPage.getSelectedArriveAt(), arriveAt, "Arrive at value mismatch!");
     }
 }
+
+
+

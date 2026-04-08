@@ -18,12 +18,12 @@ public class MyTicketPage extends GeneralPage {
     public void cancelTicketById(String ticketId) {
         String cleanId = ticketId.trim();
         String dynamicXPath = String.format("//input[contains(@onclick, 'DeleteTicket(%s)')]", cleanId);
-        
+
         WebElement btnCancelElement = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(dynamicXPath)));
-        
+
         JavascriptExecutor js = (JavascriptExecutor) Constant.WEBDRIVER;
         js.executeScript("arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'});", btnCancelElement);
-        
+
         wait.until(ExpectedConditions.elementToBeClickable(btnCancelElement));
         js.executeScript("arguments[0].click();", btnCancelElement);
 

@@ -20,37 +20,40 @@ public class ChangePasswordPage {
     private final By tabChangePassword = By.xpath("//div[@id='menu']//a[@href='/Account/ChangePassword.cshtml']/..");
 
     //Elements
-    public WebElement getTxtCurrentPass(){
+    public WebElement getTxtCurrentPass() {
         return Constant.WEBDRIVER.findElement(_txtCurrentPass);
     }
-    public WebElement getTxtNewPass(){
+
+    public WebElement getTxtNewPass() {
         return Constant.WEBDRIVER.findElement(_txtNewPass);
     }
-    public WebElement getTxtConfirmPass(){
+
+    public WebElement getTxtConfirmPass() {
         return Constant.WEBDRIVER.findElement(_txtConfirmPass);
     }
-    public WebElement getBtnChangePass(){
+
+    public WebElement getBtnChangePass() {
         return Constant.WEBDRIVER.findElement(_btnChangePass);
     }
-    public WebElement getLblChangePassError(){
+
+    public WebElement getLblChangePassError() {
         return Constant.WEBDRIVER.findElement(_lblChangePassError);
     }
 
-    public WebElement getLnlChangePassSuccess(){
-        // Chờ tối đa 10 giây cho đến khi thông báo xuất hiện
+    public WebElement getLnlChangePassSuccess() {
+
         WebDriverWait wait = new WebDriverWait(Constant.WEBDRIVER, Duration.ofSeconds(10));
         return wait.until(ExpectedConditions.visibilityOfElementLocated(_lnlChangePassSuccess));
     }
 
     //Method
     public boolean isChangePasswordTabActive() {
-        // Lấy thuộc tính class và kiểm tra xem có chứa chữ "selected" không
+
         String tabClass = Constant.WEBDRIVER.findElement(tabChangePassword).getAttribute("class");
         return tabClass != null && tabClass.contains("selected");
     }
 
-    public ChangePasswordPage change(String password, String newPass)
-    {
+    public ChangePasswordPage change(String password, String newPass) {
         this.getTxtCurrentPass().sendKeys(password);
         this.getTxtNewPass().sendKeys(newPass);
         this.getTxtConfirmPass().sendKeys(newPass);

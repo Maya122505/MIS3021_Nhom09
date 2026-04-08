@@ -38,7 +38,7 @@ public class AccountTests {
         Assert.assertTrue(homePage.isLogoutTabDisplayed(), "Lỗi: Tab 'Logout' không hiển thị sau khi login");
 
         String actualLogoutText = homePage.getLogoutTabText();
-        // UI thực tế là "Log out", mong đợi của TC là "Logout"
+
         String expectedLogoutText = "Logout";
         Assert.assertEquals(actualLogoutText, expectedLogoutText, "Issue: Text Mismatch on \"Logout\" tab.");
 
@@ -59,7 +59,7 @@ public class AccountTests {
         registerPage.register(dynamicEmail, "123456789", "123456789", "123456789");
 
         String actualMessage = registerPage.getRegisterSuccessMessage().trim();
-        // UI thực tế là "Registration Confirmed!...", mong đợi của TC là "Thank you for registering your account"
+
         String expectedMessage = "Thank you for registering your account";
         Assert.assertEquals(actualMessage, expectedMessage, "Lỗi: Thông báo đăng ký thành công không khớp mong đợi!");
     }
@@ -87,7 +87,7 @@ public class AccountTests {
         changePasswordPage.change(Constant.PASSWORD, Constant.PASSWORD);
 
         String actualMsg = changePasswordPage.getLnlChangePassSuccess().getText().trim();
-        // UI thực tế là "Your password has been updated!" (có dấu chấm), mong đợi là "Your password has been updated" (không dấu chấm)
+
         String expectedMsg = "Your password has been updated";
         Assert.assertEquals(actualMsg, expectedMsg, "Message is not displayed as expected");
     }

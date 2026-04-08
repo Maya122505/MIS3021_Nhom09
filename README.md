@@ -12,10 +12,11 @@ Dự án này là bộ công cụ kiểm thử tự động (Automation Testing)
 *   **Tiện ích:** Apache Commons IO (hỗ trợ lưu ảnh chụp màn hình)
 ## 📋 Phạm vi kiểm thử (Test Scenarios)
 Dự án bao phủ 16 Test Cases (TC01 - TC16) với các chức năng trọng tâm:
-1.  **Hệ thống Login (TC01-TC05)
-2.  **Quản lý Tài khoản (TC06-TC11)
-3.  **Quản lý Vé & Reset Password (TC12, TC13, TC16)
-4.  **Đặt Vé Tàu (TC14-TC15)
+1.  LoginTests (TC01-TC05)
+2.  AccountTests (TC06-TC9)
+3.  ScheduleTests (TC10, TC11)
+4.  ManageTests (TC12, TC13, TC16)
+5.  TicketTests (TC14-TC15)
 
 ## 🚀 Hướng dẫn
 ### 1. Chuẩn bị
@@ -38,3 +39,9 @@ mvn clean test
 
 
 *Dự án được thực hiện bởi Nhóm 09 - 49K14.1 - 2026.*
+Thành viên nhóm: 
+1. Mai Thị Thu Thủy (Leader)
+2. Lê Nguyễn Bảo Trúc
+3. Đinh Thị Thức
+4. Nguyễn Thị Hoàng Luy
+5. Nguyễn Thị Lê Uyên
